@@ -24,9 +24,9 @@ var y_low=0; // y's domain down limit initialize
 var windowWidth=window.innerWidth;
 var windowHeight=window.innerHeight;
 
-var margin = {top: 0.05*windowHeight, right: 0.13*windowWidth, bottom:  0.05*windowHeight, left: 0.09*windowWidth},
-    width = 0.75*windowWidth - margin.left - margin.right,
-    height = 0.73*windowHeight - margin.top - margin.bottom;
+var margin = {top: 10, right: 120, bottom: 40, left: 80},
+    width = 850 - margin.left - margin.right,
+    height = 450 - margin.top - margin.bottom;
 var duration = 750,
     delay = 25; // animation transition variables
 
