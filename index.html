@@ -108,12 +108,43 @@ rect.background {
 
 
 <body>
-<div id="graph">
-  </div>
+ <script type="text/x-handlebars">
+    <div class="title">
+      <h1>Dashboard using Ember and D3</h1>
+      <h2>waterfall chart mainly</h2>
+    </div>
 
-  <script type="text/x-handlebars" data-template-name="application">
+    <div class="content">
+      <div id="left-panel" class="text-center">
+        <ul class="nav nav-list">
+        <li class="nav-header">{{#link-to 'index'}}waterfall-chart{{/link-to}}</li>
+        <li class="active">{{#link-to 'test'}}bar-chart{{/link-to}}</li>
+        <li><a href="#">Library</a></li>
+        </ul>
+
+      </div>
+
+      <div id="center-panel" class="container-fluid">
+        {{outlet}}
+      </div>
+    </div>
+  </script>
+
+
+
+  <script type="text/x-handlebars" data-template-name="index">
 
     {{waterfall-chart  file="https://rawgit.com/zhuxh529/myEmberD3/master/data_5.json"}}
+
+  </script>
+
+
+  <script type="text/x-handlebars" data-template-name="test">
+
+
+    {{bar-chart}}
+
+
 
   </script>
 
@@ -146,8 +177,17 @@ rect.background {
  <div id="test">
  </div>
 </div>
-
   </script>
+
+<script type="text/x-handlebars" id="components/bar-chart" >
+<div class="container" style="width:100%;">
+
+
+</div>
+</script>
+
+
+
 
   <script src="https://rawgit.com/zhuxh529/myEmberD3/master/js/libs/jquery-1.10.2.js"></script>
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>

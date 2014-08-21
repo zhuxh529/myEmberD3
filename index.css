@@ -1,31 +1,31 @@
-/* 
- * this CSS is not part of the widget, it is here just as an example of the demo page styling.... 
- * 
- * Don't copy this one, roll your own. One of the key things about the widget is that 
+/*
+ * this CSS is not part of the widget, it is here just as an example of the demo page styling....
+ *
+ * Don't copy this one, roll your own. One of the key things about the widget is that
  * it allows you to do your own styling!
  *
  */
 td:focus {
 	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #7ab5d3;
 	-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #7ab5d3;
-	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #7ab5d3;	
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #7ab5d3;
 	outline: rgb(91, 157, 217) auto 5px;
 }
 input.error {
 	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px red;
 	-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px red;
-	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px red;	
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px red;
 	outline: thin auto red;
 }
 input {
 	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #7ab5d3;
 	-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #7ab5d3;
-	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #7ab5d3;	
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #7ab5d3;
 	outline: rgb(91, 157, 217) auto 5px;
 	outline-offset: 0px;
 	border: none;
 }
-#mainTable thead th, #mainTable tbody td { 
+#mainTable thead th, #mainTable tbody td {
   width: 25%;
 }
 #mainTable td + td, #mainTable th + th {
@@ -48,3 +48,56 @@ html>body table.scrollable td, html>body table.scrollable th {
 }
 
 
+
+.title {
+	background-color: #8E2800;
+	color: white;
+	padding-top: 10px;
+	margin-top: 0;
+	margin-bottom: 0;
+	text-align: center;
+}
+	.title h1 {
+		margin: 0;
+	}
+	.title h2 {
+		margin: 0;
+
+		font-size: 19px;
+	}
+
+.content {
+	border-top: 1px solid #ddd;
+	position: absolute;
+	top: 90px;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+
+.bordered {
+	border: 1px solid #eee;
+	border-radius: 4px;
+	padding: 10px;
+}
+
+#left-panel {
+	width: 140px;
+}
+
+#center-panel {
+	margin-left: 130px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	background-color: white;
+	border-left: 1px solid #ddd;
+}
+
+
+.bar rect {
+  fill: steelblue;
+  shape-rendering: crispEdges;
+}
