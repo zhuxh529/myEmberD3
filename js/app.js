@@ -55,12 +55,36 @@ App.WaterfallChartComponent = Ember.Component.extend({
  * The last function of the component, but has alot of sub-functions.
  */
  didInsertElement: function(){
+    var datafile=this.get('file');
+    this.send('draw',datafile);
 
-    var cumulated=[];
+ },
+
+
+
+
+
+
+
+
+  /* component's own functions*/
+  actions:{
+
+    deleteSvg: function(file){
+      var id = this.$().attr('id');
+      d3.select("#"+id).selectAll('svg').remove();
+      this.send('draw',file);
+    },
+
+    draw: function(file){
+      var id = this.$().attr('id');
+
+      var cumulated=[];
     var firstCumulated=[];
     var barWidth = 75;
-    var datafile=this.get('file');
-    var id = this.$().attr('id');
+    var datafile=file;
+
+
     var y = d3.scale.linear()
         .range([0,height]);
 
@@ -633,22 +657,14 @@ App.WaterfallChartComponent = Ember.Component.extend({
         return bar.type == "acc";
     }
 
- },
 
 
-
-
-
-
-
-
-  /* component's own functions*/
-  actions:{
-
+    },
     /* function goClean()
     *clean all the effects on the waterfall charts
     */
     goClean: function(){
+      //this.send('test', 'hello world!');
 
       if(d3.selectAll(".newbar")[0].length != 0){
       d3.selectAll(".newbar")

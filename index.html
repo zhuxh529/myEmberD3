@@ -92,7 +92,7 @@ rect.background {
     }
 
     .btn-group .btn{
-    font-size: 14px;
+    font-size: 13px;
     }
 
   }
@@ -121,12 +121,27 @@ rect.background {
 <script type="text/x-handlebars" id="components/waterfall-chart" >
 <div class="container" style="width:100%;">
 <div class="buttons btn-group " >
-  <button type="button" class="btn btn-default btn-success"  {{action "goPercent"}} >To Percent</button>
+  <button type="button" class="btn btn-default  btn-success"  {{action "goPercent"}} >To Percent</button>
   <button type="button" class="btn btn-default btn-success" {{action "goValue"}}>To Value</button>
   <button type="button" class="btn btn-default btn-info"  {{action "goif"}}>IF-Scenario</button>
   <button type="button" class="btn btn-default btn-warning"  {{action "goClean"}}>Clean</button>
 
 </div>
+<div class=" buttons btn-group">
+  <a class="btn btn-default dropdown-toggle btn-danger" data-toggle="dropdown" href="#">
+    data files
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu">
+    <li><a href="#" {{action "deleteSvg" "https://rawgit.com/zhuxh529/myEmberD3/master/data_1.json"}}>datafile1</a></li>
+    <li><a href="#" {{action "deleteSvg" "https://rawgit.com/zhuxh529/myEmberD3/master/data_2.json"}}>datafile2</a></li>
+    <li><a href="#" {{action "deleteSvg" "https://rawgit.com/zhuxh529/myEmberD3/master/data_3.json"}}>datafile3</a></li>
+    <li><a href="#" {{action "deleteSvg" "https://rawgit.com/zhuxh529/myEmberD3/master/data_4.json"}}>datafile4</a></li>
+    <li><a href="#" {{action "deleteSvg" "https://rawgit.com/zhuxh529/myEmberD3/master/data_5.json"}}>datafile5</a></li>
+
+  </ul>
+</div>
+
 
  <div id="test">
  </div>
@@ -134,14 +149,17 @@ rect.background {
 
   </script>
 
-  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="https://rawgit.com/zhuxh529/myEmberD3/master/js/libs/jquery-1.10.2.js"></script>
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-  <script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+  <script src="js/libs/jquery-ui.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.1.2/handlebars.js"></script>
   <script src="https://rawgit.com/zhuxh529/emberd3/master/js/libs/ember-1.5.1.js"></script>
   <script src="http://d3js.org/d3.v3.min.js"></script>
   <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+  <!--
   <script src="https://rawgit.com/zhuxh529/myEmberD3/master/js/app.js"></script>
+  -->
+  <script src="js/app.js"></script>
   <script src="https://rawgit.com/zhuxh529/myEmberD3/master/mindmup-editabletable.js"></script>
 
 
