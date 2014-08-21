@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WaterFall Charts</title>
+
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+  <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+  <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-responsive.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
+  <link href="external/google-code-prettify/prettify.css" rel="stylesheet">
+  <link href="index.css" rel="stylesheet">
+
+
+
+
+</head>
+<style>
+#graph {
+    display:inline-block;
+  }
+
+
+#menu {
+  display:inline-block;
+  height: 700px;
+  vertical-align:top;
+  margin-top: 80px;
+  margin-bottom: 100px;
+  margin-left: 10px;
+  font-size: 19px;
+}
+
+text {
+  font: 10px sans-serif;
+}
+
+rect.background {
+  fill: white;
+}
+
+
+
+.axis {
+  shape-rendering: crispEdges;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+}
+
+/*tip1*/
+.bar:hover {
+  fill: orangered ;
+}
+
+
+.d3-tip {
+  line-height: 0.5;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 2px;
+}
+
+#test {
+  margin:10px 0px 0px 60px;
+}
+
+.btn-group{
+   margin:10px 0px 0px 60px;
+}
+
+@media   (max-width: 450px) {
+    .buttons{
+      left:0%;
+    }
+
+    .btn-group .btn{
+    font-size: 9px;
+    }
+  }
+
+
+@media  (min-device-width: 900px) {
+    .buttons{
+      left:8%;
+    }
+
+    .btn-group .btn{
+    font-size: 14px;
+    }
+
+  }
+
+
+
+
+
+
+
+
+
+</style>
+
+
+<body>
+<div id="graph">
+  </div>
+
+  <script type="text/x-handlebars" data-template-name="application">
+
+    {{waterfall-chart  file="data_5.json"}}
+
+  </script>
+
+
+<script type="text/x-handlebars" id="components/waterfall-chart" >
+<div class="container" style="width:100%;">
+<div class="buttons btn-group " >
+  <button type="button" class="btn btn-default btn-success"  {{action "goPercent"}} >To Percent</button>
+  <button type="button" class="btn btn-default btn-success" {{action "goValue"}}>To Value</button>
+  <button type="button" class="btn btn-default btn-info"  {{action "goif"}}>IF-Scenario</button>
+  <button type="button" class="btn btn-default btn-warning"  {{action "goClean"}}>Clean</button>
+
+</div>
+
+ <div id="test">
+ </div>
+</div>
+
+  </script>
+
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.1.2/handlebars.js"></script>
+  <script src="https://rawgit.com/zhuxh529/emberd3/master/js/libs/ember-1.5.1.js"></script>
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+  <script src="https://rawgit.com/zhuxh529/emberd3/master/js/app.js"></script>
+  <script src="https://rawgit.com/zhuxh529/emberd3/master/mindmup-editabletable.js"></script>
+
+
+
+</body>
+</html>

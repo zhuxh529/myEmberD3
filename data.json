@@ -1,0 +1,91 @@
+
+{
+ "name": "flare",
+ "children": [
+  {
+   "name": "List Price", "type": "acc",
+   "children": [
+    {
+     "name": "cluster",
+     "children": [
+      {"name": "AgglomerativeCluster", "size": 2.5},
+      {"name": "MergeEdge", "size": 1.3}
+     ]
+    },
+    {
+     "name": "graph",
+     "children": [
+      {"name": "BetweennessCentrality", "size": 2.6},
+      {"name": "SpanningTree", "size": 1.0}
+     ]
+    },
+    {
+     "name": "optimization",
+     "children": [
+      {"name": "AspectRatioBanker", "size": 0.2}
+     ]
+    }
+   ]
+  },
+  {
+   "name": "stand. Disc. & Promot.", "type": "dec",
+   "children": [
+    {"name": "Easing", "size": -0.3},
+    {"name": "FunctionSequence", "size": -0.2},
+    {
+     "name": "interpolate",
+     "children": [
+      {"name": "ArrayInterpolator", "size": -0.25},
+      {"name": "RectangleInterpolator", "size": -0.2}
+     ]
+    },
+    {"name": "ISchedulable", "size": -0.65},
+    {"name": "Tween", "size": -0.7}
+   ]
+  },
+  {
+   "name": "Invoice","type": "acc",
+   "children": [
+    {
+     "name": "converters",
+     "children": [
+      {"name": "Converters", "size": 1},
+      {"name": "JSONConverter", "size": 1}
+     ]
+    },
+    {"name": "DataField", "size": 1.6},
+    {"name": "DataUtil", "size": 1.7}
+   ]
+  },
+  {
+   "name": "Off Invoice", "type": "inc",
+   "children": [
+    {"name": "DirtySprite", "size": 0.4},
+    {"name": "TextSprite", "size": 0.9}
+   ]
+  },
+  {
+   "name": "Pocket Price", "type": "acc",
+   "children": [
+    {"name": "FlareVis", "size": 6.61}
+   ]
+  },
+  {
+   "name": "Producion Cost", "type": "dec",
+   "children": [
+    {"name": "DragForce", "size": -1.34},
+    {"name": "SpringForce", "size": -2.3}
+   ]
+  },
+  {
+   "name": "Pocket Margin", "type": "acc",
+   "children": [
+    {"name": "IScaleMap", "size": 0.42},
+    {"name": "Scale", "size": 1.21},
+    {"name": "ScaleType", "size": 0.33},
+    {"name": "TimeScale", "size": 1.01}
+   ]
+  }
+ ]
+}
+
