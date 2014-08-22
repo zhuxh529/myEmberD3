@@ -17,7 +17,13 @@
 App = Ember.Application.create();
 
 App.Router.map(function() {
-  this.resource('test');
+
+  this.resource('barChart');
+  this.resource('pieChart');
+  this.resource('donutChart');
+  this.resource('lineChart');
+  this.resource('hexChart');
+
 
 });
 
@@ -28,9 +34,9 @@ var y_low=0; // y's domain down limit initialize
 var windowWidth=window.innerWidth;
 var windowHeight=window.innerHeight;
 
-var margin = {top: 10, right: 120, bottom: 40, left: 80},
-    width = 850 - margin.left - margin.right,
-    height = 450 - margin.top - margin.bottom;
+var margin = {top: 10, right: 120, bottom: 50, left: 80},
+    width = 890 - margin.left - margin.right,
+    height = 550 - margin.top - margin.bottom;
 var duration = 750,
     delay = 25; // animation transition variables
 
@@ -1190,7 +1196,7 @@ var values = d3.range(1000).map(d3.random.bates(10));
 var formatCount = d3.format(",.0f");
 
 var margin = {top: 10, right: 30, bottom: 30, left: 30},
-    width = 960 - margin.left - margin.right,
+    width = 860 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
 var x = d3.scale.linear()
@@ -1219,7 +1225,10 @@ var svg = d3.select("#"+id).append("svg")
 var bar = svg.selectAll(".bar")
     .data(data)
   .enter().append("g")
-    .attr("class", "bar")
+    .attr("class", "bar");
+
+    bar.transition()
+    .duration(duration)
     .attr("transform", function(d) { return "translate(" + x(d.x) + "," + y(d.y) + ")"; });
 
 bar.append("rect")
@@ -1234,6 +1243,8 @@ bar.append("text")
     .attr("text-anchor", "middle")
     .text(function(d) { return formatCount(d.y); });
 
+
+
 svg.append("g")
     .attr("class", "x axis")
     .attr("transform", "translate(0," + height + ")")
@@ -1241,3 +1252,270 @@ svg.append("g")
 
  }
 });
+
+
+
+
+App.PieChartComponent = Ember.Component.extend({
+
+
+  didInsertElement: function(){
+    var id = this.$().attr('id');
+var width = 960,
+    height = 500,
+    radius = Math.min(width, height) / 2;
+
+var color = d3.scale.ordinal()
+    .range(["#11abc5", "#3189a6", "#516888", "#7b186b", "#3399FF", "#6633CC", "#66FF00"]);
+
+var arc = d3.svg.arc()
+    .outerRadius(radius - 10)
+    .innerRadius(radius - 70);
+
+var pie = d3.layout.pie()
+    .sort(null)
+    .value(function(d) { return d.population; });
+
+var svg = d3.select("#"+id).append("svg")
+    .attr("width", width)
+    .attr("height", height)
+  .append("g")
+    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+d3.csv("dataDonut.csv", function(error, data) {
+  data.forEach(function(d) {
+    d.population = +d.population;
+  });
+
+  var g = svg.selectAll(".arc")
+      .data(pie(data))
+      .enter().append("g")
+      .attr("class", "arc");
+
+  g.append("path")
+      .attr("d", arc)
+      .transition()
+      .duration(duration)
+      .style("fill", function(d) { return color(d.data.age); });
+
+  g.append("text")
+      .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
+      .attr("dy", ".35em")
+      .style("text-anchor", "middle")
+      .text(function(d) { return d.data.age; });
+
+});
+  }
+
+
+
+});
+
+
+App.DonutChartComponent = Ember.Component.extend({
+
+
+  didInsertElement: function(){
+    var id = this.$().attr('id');
+var width = 960,
+    height = 500,
+    radius = Math.min(width, height) / 2;
+
+var color = d3.scale.ordinal()
+    .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+
+var arc = d3.svg.arc()
+    .outerRadius(radius - 10)
+    .innerRadius(0);
+
+var pie = d3.layout.pie()
+    .sort(null)
+    .value(function(d) { return d.population; });
+
+var svg = d3.select("#"+id).append("svg")
+    .attr("width", width)
+    .attr("height", height)
+  .append("g")
+    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+d3.csv("dataDonut.csv", function(error, data) {
+
+  data.forEach(function(d) {
+    d.population = +d.population;
+  });
+
+  var g = svg.selectAll(".arc")
+      .data(pie(data))
+    .enter().append("g")
+      .attr("class", "arc");
+
+  g.append("path")
+      .attr("d", arc)
+      .transition()
+      .duration(duration)
+      .style("fill", function(d) { return color(d.data.age); });
+
+  g.append("text")
+      .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
+      .attr("dy", ".35em")
+      .style("text-anchor", "middle")
+      .text(function(d) { return d.data.age; });
+
+});
+    }
+
+});
+
+
+
+
+
+App.LineChartComponent = Ember.Component.extend({
+
+
+  didInsertElement: function(){
+    var id = this.$().attr('id');
+    var margin = {top: 20, right: 20, bottom: 30, left: 50},
+    width = 860 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+var parseDate = d3.time.format("%d-%b-%y").parse;
+
+var x = d3.time.scale()
+    .range([0, width]);
+
+var y = d3.scale.linear()
+    .range([height, 0]);
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left");
+
+var line = d3.svg.line()
+    .x(function(d) { return x(d.date); })
+    .y(function(d) { return y(d.close); });
+
+var svg = d3.select("#"+id).append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+d3.tsv("dataLine.tsv", function(error, data) {
+  data.forEach(function(d) {
+    d.date = parseDate(d.date);
+    d.close = +d.close;
+  });
+
+  x.domain(d3.extent(data, function(d) { return d.date; }));
+  y.domain(d3.extent(data, function(d) { return d.close; }));
+
+  svg.append("g")
+      .attr("class", "x axis")
+      .transition()
+      .duration(duration)
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis);
+
+  svg.append("g")
+      .attr("class", "y axis")
+      .call(yAxis)
+    .append("text")
+          .transition()
+      .duration(duration)
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("Price ($)");
+
+  svg.append("path")
+      .datum(data)
+      .attr("class", "line")
+      .attr("d", line)
+      ;
+});
+    }
+
+});
+
+
+App.HexChartComponent = Ember.Component.extend({
+
+
+  didInsertElement: function(){
+    var id = this.$().attr('id');
+    var margin = {top: 20, right: 20, bottom: 30, left: 40},
+    width = 860 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+var randomX = d3.random.normal(width / 2, 80),
+    randomY = d3.random.normal(height / 2, 80),
+    points = d3.range(2000).map(function() { return [randomX(), randomY()]; });
+
+var color = d3.scale.linear()
+    .domain([0, 20])
+    .range(["white", "steelblue"])
+    .interpolate(d3.interpolateLab);
+
+var hexbin = d3.hexbin()
+    .size([width, height])
+    .radius(20);
+
+var x = d3.scale.identity()
+    .domain([0, width]);
+
+var y = d3.scale.linear()
+    .domain([0, height])
+    .range([height, 0]);
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom")
+    .tickSize(6, -height);
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left")
+    .tickSize(6, -width);
+
+var svg = d3.select("#"+id).append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+svg.append("clipPath")
+    .attr("id", "clip")
+  .append("rect")
+    .attr("class", "mesh")
+    .attr("width", width)
+    .attr("height", height);
+
+svg.append("g")
+    .attr("clip-path", "url(#clip)")
+  .selectAll(".hexagon")
+    .data(hexbin(points))
+  .enter().append("path")
+    .attr("class", "hexagon")
+    .attr("d", hexbin.hexagon())
+    .transition()
+      .duration(duration)
+    .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
+    .style("fill", function(d) { return color(d.length); });
+
+svg.append("g")
+    .attr("class", "y axis")
+    .call(yAxis);
+
+svg.append("g")
+    .attr("class", "x axis")
+    .attr("transform", "translate(0," + height + ")")
+    .call(xAxis);
+    }
+  });

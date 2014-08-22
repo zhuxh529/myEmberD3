@@ -17,94 +17,6 @@
 
 
 </head>
-<style>
-#graph {
-    display:inline-block;
-  }
-
-
-#menu {
-  display:inline-block;
-  height: 700px;
-  vertical-align:top;
-  margin-top: 80px;
-  margin-bottom: 100px;
-  margin-left: 10px;
-  font-size: 19px;
-}
-
-text {
-  font: 10px sans-serif;
-}
-
-rect.background {
-  fill: white;
-}
-
-
-
-.axis {
-  shape-rendering: crispEdges;
-}
-
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-}
-
-/*tip1*/
-.bar:hover {
-  fill: orangered ;
-}
-
-
-.d3-tip {
-  line-height: 0.5;
-  padding: 10px;
-  background: rgba(0, 0, 0, 0.8);
-  color: #fff;
-  border-radius: 2px;
-}
-
-#test {
-  margin:10px 0px 0px 60px;
-}
-
-.btn-group{
-   margin:10px 0px 0px 60px;
-}
-
-@media   (max-width: 450px) {
-    .buttons{
-      left:0%;
-    }
-
-    .btn-group .btn{
-    font-size: 9px;
-    }
-  }
-
-
-@media  (min-device-width: 900px) {
-    .buttons{
-      left:8%;
-    }
-
-    .btn-group .btn{
-    font-size: 13px;
-    }
-
-  }
-
-
-
-
-
-
-
-
-</style>
 
 
 <body>
@@ -114,12 +26,16 @@ rect.background {
       <h2>waterfall chart mainly</h2>
     </div>
 
-    <div class="content">
-      <div id="left-panel" class="text-center">
-        <ul class="nav nav-list">
-        <li class="nav-header">{{#link-to 'index'}}waterfall-chart{{/link-to}}</li>
-        <li class="active">{{#link-to 'test'}}bar-chart{{/link-to}}</li>
-        <li><a href="#">Library</a></li>
+    <div class="content row">
+      <div id="left-panel" class="text-center col-sm-3 col-md-2 sidebar">
+        <ul class="nav nav-sidebar nav-stacked">
+        <li >{{#link-to 'index'}}waterfall-chart{{/link-to}}</li>
+        <li >{{#link-to 'barChart'}}bar-chart{{/link-to}}</li>
+        <li>{{#link-to 'pieChart'}}donut-chart{{/link-to}}</li>
+        <li>{{#link-to 'donutChart'}}bar-chart{{/link-to}}</li>
+        <li>{{#link-to 'lineChart'}}line-chart{{/link-to}}</li>
+        <li>{{#link-to 'hexChart'}}hexagonal-chart{{/link-to}}</li>
+
         </ul>
 
       </div>
@@ -134,20 +50,30 @@ rect.background {
 
   <script type="text/x-handlebars" data-template-name="index">
 
-    {{waterfall-chart  file="https://rawgit.com/zhuxh529/myEmberD3/master/data_5.json"}}
+    {{waterfall-chart  file="https://rawgit.com/zhuxh529/myEmberD3/master/data_1.json"}}
 
   </script>
 
 
-  <script type="text/x-handlebars" data-template-name="test">
-
-
+  <script type="text/x-handlebars" data-template-name="barChart">
     {{bar-chart}}
-
-
-
   </script>
 
+  <script type="text/x-handlebars" data-template-name="pieChart">
+    {{pie-chart}}
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="donutChart">
+    {{donut-chart}}
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="lineChart">
+    {{line-chart}}
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="hexChart">
+    {{hex-chart}}
+  </script>
 
 <script type="text/x-handlebars" id="components/waterfall-chart" >
 <div class="container" style="width:100%;">
@@ -181,12 +107,32 @@ rect.background {
 
 <script type="text/x-handlebars" id="components/bar-chart" >
 <div class="container" style="width:100%;">
-
-
 </div>
 </script>
 
 
+<script type="text/x-handlebars" id="components/pie-chart" >
+<div class="container" style="width:100%;">
+</div>
+</script>
+
+
+<script type="text/x-handlebars" id="components/donut-chart" >
+<div class="container" style="width:100%;">
+</div>
+</script>
+
+
+<script type="text/x-handlebars" id="components/line-chart" >
+<div class="container" style="width:100%;">
+</div>
+</script>
+
+
+<script type="text/x-handlebars" id="components/hex-chart" >
+<div class="container" style="width:100%;">
+</div>
+</script>
 
 
   <script src="https://rawgit.com/zhuxh529/myEmberD3/master/js/libs/jquery-1.10.2.js"></script>
@@ -196,6 +142,8 @@ rect.background {
   <script src="https://rawgit.com/zhuxh529/emberd3/master/js/libs/ember-1.5.1.js"></script>
   <script src="http://d3js.org/d3.v3.min.js"></script>
   <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+  <script src="http://d3js.org/d3.hexbin.v0.min.js?5c6e4f0"></script>
+
   <!--
   <script src="https://rawgit.com/zhuxh529/myEmberD3/master/js/app.js"></script>
   -->
