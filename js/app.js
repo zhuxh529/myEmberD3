@@ -18,11 +18,14 @@ App = Ember.Application.create();
 
 App.Router.map(function() {
 
+this.resource('description');
+  this.resource('about');
   this.resource('barChart');
   this.resource('pieChart');
   this.resource('donutChart');
   this.resource('lineChart');
   this.resource('hexChart');
+
 
 
 });
@@ -1103,8 +1106,8 @@ App.WaterfallChartComponent = Ember.Component.extend({
           .attr("class", "newbar")
           .transition()
           .duration(duration)
-          .attr("fill-opacity",0.96)
-          .attr("fill", "#e6550d")
+          .attr("fill-opacity",0.90)
+          .attr("fill", "#2DBAD4")
           .attr("x", function(d,i){ return (barWidth*barGap)*(i+0.3);})
           .attr("height", function(d,i) {
             return Math.abs(y(d)-y(0));
@@ -1157,14 +1160,16 @@ App.WaterfallChartComponent = Ember.Component.extend({
           //add tips to the bars in the new layer
           test1.selectAll(".newbar")
           .on("mouseover", function(d,i) {
-                d3.select(this).style("fill","orangered");
+                d3.select(this).style("fill","#21AAE1")
+                .style("fill-opacity",1);;
                 tipdata.name=names[i];
                 tipdata.value=d;
                 tipdata.percent=100*d/data[0];
                 tip.show(tipdata);
           })
           .on("mouseout", function(d,i) {
-                d3.select(this).style("fill","#e6550d");
+                d3.select(this).style("fill","#2DBAD4")
+                .style("fill-opacity",0.90);
                 tip.hide();
           });
 
@@ -1282,7 +1287,7 @@ var svg = d3.select("#"+id).append("svg")
   .append("g")
     .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-d3.csv("dataDonut.csv", function(error, data) {
+d3.csv("https://rawgit.com/zhuxh529/myEmberD3/master/dataDonut.csv", function(error, data) {
   data.forEach(function(d) {
     d.population = +d.population;
   });
@@ -1338,7 +1343,7 @@ var svg = d3.select("#"+id).append("svg")
   .append("g")
     .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-d3.csv("dataDonut.csv", function(error, data) {
+d3.csv("https://rawgit.com/zhuxh529/myEmberD3/master/dataDonut.csv", function(error, data) {
 
   data.forEach(function(d) {
     d.population = +d.population;
@@ -1406,7 +1411,7 @@ var svg = d3.select("#"+id).append("svg")
 
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-d3.tsv("dataLine.tsv", function(error, data) {
+d3.tsv("https://rawgit.com/zhuxh529/myEmberD3/master/dataLine.tsv", function(error, data) {
   data.forEach(function(d) {
     d.date = parseDate(d.date);
     d.close = +d.close;
