@@ -37,9 +37,9 @@ var y_low=0; // y's domain down limit initialize
 var windowWidth=window.innerWidth;
 var windowHeight=window.innerHeight;
 
-var margin = {top: 10, right: 120, bottom: 50, left: 80},
-    width = 890 - margin.left - margin.right,
-    height = 550 - margin.top - margin.bottom;
+var margin = {top: 10, right: 120, bottom: 50, left: 120},
+    width = (windowWidth-180)*5.5/6 - margin.left - margin.right,
+    height = (windowHeight-80)*5/6 - margin.top - margin.bottom;
 var duration = 750,
     delay = 25; // animation transition variables
 
@@ -1200,9 +1200,7 @@ var values = d3.range(1000).map(d3.random.bates(10));
 // A formatter for counts.
 var formatCount = d3.format(",.0f");
 
-var margin = {top: 10, right: 30, bottom: 30, left: 30},
-    width = 860 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+
 
 var x = d3.scale.linear()
     .domain([0, 1])
@@ -1266,50 +1264,35 @@ App.PieChartComponent = Ember.Component.extend({
 
   didInsertElement: function(){
     var id = this.$().attr('id');
-var width = 960,
-    height = 500,
-    radius = Math.min(width, height) / 2;
+var radius = Math.min(width, height) / 2;
 
-var color = d3.scale.ordinal()
-    .range(["#11abc5", "#3189a6", "#516888", "#7b186b", "#3399FF", "#6633CC", "#66FF00"]);
+var dataset = {
+  apples: [53245, 28479, 19697, 24037, 40245,10000,30000,3000],
+};
 
-var arc = d3.svg.arc()
-    .outerRadius(radius - 10)
-    .innerRadius(radius - 70);
+var color = d3.scale.category20();
 
 var pie = d3.layout.pie()
-    .sort(null)
-    .value(function(d) { return d.population; });
+    .sort(null);
+
+var arc = d3.svg.arc()
+    .innerRadius(radius*0.4)
+    .outerRadius(radius);
 
 var svg = d3.select("#"+id).append("svg")
     .attr("width", width)
     .attr("height", height)
-  .append("g")
-    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+    .append("g")
+    .attr("transform", "translate(" + width*1.3 / 2 + "," + height / 2 + ")");
 
-d3.csv("https://rawgit.com/zhuxh529/myEmberD3/master/dataDonut.csv", function(error, data) {
-  data.forEach(function(d) {
-    d.population = +d.population;
-  });
-
-  var g = svg.selectAll(".arc")
-      .data(pie(data))
-      .enter().append("g")
-      .attr("class", "arc");
-
-  g.append("path")
-      .attr("d", arc)
-      .transition()
+var path = svg.selectAll("path")
+    .data(pie(dataset.apples))
+  .enter().append("path")
+  .transition()
       .duration(duration)
-      .style("fill", function(d) { return color(d.data.age); });
+    .attr("fill", function(d, i) { return color(i); })
+    .attr("d", arc);
 
-  g.append("text")
-      .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
-      .attr("dy", ".35em")
-      .style("text-anchor", "middle")
-      .text(function(d) { return d.data.age; });
-
-});
   }
 
 
@@ -1321,53 +1304,38 @@ App.DonutChartComponent = Ember.Component.extend({
 
 
   didInsertElement: function(){
-    var id = this.$().attr('id');
-var width = 960,
-    height = 500,
-    radius = Math.min(width, height) / 2;
+     var id = this.$().attr('id');
+     d3.select("#"+id).select("svg").remove();
+var radius = Math.min(width, height) / 2;
 
-var color = d3.scale.ordinal()
-    .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+var dataset = {
+  apples: [ 28479, 19697, 24037, 40245,10000,30000,3000,13245,8000,20000,30000,50000],
+};
 
-var arc = d3.svg.arc()
-    .outerRadius(radius - 10)
-    .innerRadius(0);
+var color = d3.scale.category20();
 
 var pie = d3.layout.pie()
-    .sort(null)
-    .value(function(d) { return d.population; });
+    .sort(null);
+
+var arc = d3.svg.arc()
+    .innerRadius(0)
+    .outerRadius(radius);
 
 var svg = d3.select("#"+id).append("svg")
     .attr("width", width)
     .attr("height", height)
-  .append("g")
-    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+    .append("g")
+    .attr("transform", "translate(" + width*1.3 / 2 + "," + height / 2 + ")");
 
-d3.csv("https://rawgit.com/zhuxh529/myEmberD3/master/dataDonut.csv", function(error, data) {
-
-  data.forEach(function(d) {
-    d.population = +d.population;
-  });
-
-  var g = svg.selectAll(".arc")
-      .data(pie(data))
-    .enter().append("g")
-      .attr("class", "arc");
-
-  g.append("path")
-      .attr("d", arc)
-      .transition()
+var path = svg.selectAll("path")
+    .data(pie(dataset.apples))
+  .enter().append("path")
+  .transition()
       .duration(duration)
-      .style("fill", function(d) { return color(d.data.age); });
+    .attr("fill", function(d, i) { return color(i); })
+    .attr("d", arc);
 
-  g.append("text")
-      .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
-      .attr("dy", ".35em")
-      .style("text-anchor", "middle")
-      .text(function(d) { return d.data.age; });
-
-});
-    }
+  }
 
 });
 
@@ -1380,71 +1348,99 @@ App.LineChartComponent = Ember.Component.extend({
 
   didInsertElement: function(){
     var id = this.$().attr('id');
-    var margin = {top: 20, right: 20, bottom: 30, left: 50},
-    width = 860 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+    d3.select("#"+id).select("svg").remove();
 
-var parseDate = d3.time.format("%d-%b-%y").parse;
 
-var x = d3.time.scale()
-    .range([0, width]);
+    var m = [80, 80, 80, 120]; // margins
+    var w = 860 - m[1] - m[3];  // width
+    var h = 500 - m[0] - m[2]; // height
+    
+    // create a simple data array that we'll plot with a line (this array represents only the Y values, X will just be the index location)
+    var data1 = [8, 7, 8, 7,9, 9, 9, 6, 5, 3, 2, 1, 2, 1, 2, 3, 1, 2, 2, 3, 2, 1, 3, 8, 9, 6, 5, 2, 2, 3];
+    var data2 = [543, 367, 215, 56, 65, 62, 87, 156, 287, 398, 523, 685, 652, 674, 639, 619, 589, 558, 605, 574, 564, 496, 525, 476, 432, 458, 421, 387, 375, 368];
 
-var y = d3.scale.linear()
-    .range([height, 0]);
+    // X scale will fit all values from data[] within pixels 0-w
+    var x = d3.scale.linear().domain([0, data1.length]).range([0, w]);
+    // Y scale will fit values from 0-10 within pixels h-0 (Note the inverted domain for the y-scale: bigger is up!)
+    var y1 = d3.scale.linear().domain([0, 10]).range([h, 0]); // in real world the domain would be dynamically calculated from the data
+    var y2 = d3.scale.linear().domain([0, 700]).range([h, 0]);  // in real world the domain would be dynamically calculated from the data
+      // automatically determining max range can work something like this
+      // var y = d3.scale.linear().domain([0, d3.max(data)]).range([h, 0]);
 
-var xAxis = d3.svg.axis()
-    .scale(x)
-    .orient("bottom");
+    // create a line function that can convert data[] into x and y points
+    var line1 = d3.svg.line()
+      // assign the X function to plot our line as we wish
+      .x(function(d,i) { 
+        // verbose logging to show what's actually being done
+        console.log('Plotting X1 value for data point: ' + d + ' using index: ' + i + ' to be at: ' + x(i) + ' using our xScale.');
+        // return the X coordinate where we want to plot this datapoint
+        return x(i); 
+      })
+      .y(function(d) { 
+        // verbose logging to show what's actually being done
+        console.log('Plotting Y1 value for data point: ' + d + ' to be at: ' + y1(d) + " using our y1Scale.");
+        // return the Y coordinate where we want to plot this datapoint
+        return y1(d); 
+      })
+      
+    // create a line function that can convert data[] into x and y points
+    var line2 = d3.svg.line()
+      // assign the X function to plot our line as we wish
+      .x(function(d,i) { 
+        // verbose logging to show what's actually being done
+        console.log('Plotting X2 value for data point: ' + d + ' using index: ' + i + ' to be at: ' + x(i) + ' using our xScale.');
+        // return the X coordinate where we want to plot this datapoint
+        return x(i); 
+      })
+      .y(function(d) { 
+        // verbose logging to show what's actually being done
+        console.log('Plotting Y2 value for data point: ' + d + ' to be at: ' + y2(d) + " using our y2Scale.");
+        // return the Y coordinate where we want to plot this datapoint
+        return y2(d); 
+      })
 
-var yAxis = d3.svg.axis()
-    .scale(y)
-    .orient("left");
 
-var line = d3.svg.line()
-    .x(function(d) { return x(d.date); })
-    .y(function(d) { return y(d.close); });
+      // Add an SVG element with the desired dimensions and margin.
+      var graph = d3.select("#"+id).append("svg")
+            .attr("width", w + m[1] + m[3])
+            .attr("height", h + m[0] + m[2])
+          .append("svg:g")
+            .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
 
-var svg = d3.select("#"+id).append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-  .append("g")
+      // create yAxis
+        var xAxis = d3.svg.axis().scale(x).tickSize(-h).tickSubdivide(true);
+      // Add the x-axis.
+      graph.append("svg:g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + h + ")")
+            .call(xAxis);
 
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-d3.tsv("https://rawgit.com/zhuxh529/myEmberD3/master/dataLine.tsv", function(error, data) {
-  data.forEach(function(d) {
-    d.date = parseDate(d.date);
-    d.close = +d.close;
-  });
+      // create left yAxis
+      var yAxisLeft = d3.svg.axis().scale(y1).ticks(4).orient("left");
+      // Add the y-axis to the left
+      graph.append("svg:g")
+            .attr("class", "y axis axisLeft")
+            .attr("transform", "translate(-15,0)")
+            .call(yAxisLeft);
 
-  x.domain(d3.extent(data, function(d) { return d.date; }));
-  y.domain(d3.extent(data, function(d) { return d.close; }));
+        // create right yAxis
+        var yAxisRight = d3.svg.axis().scale(y2).ticks(6).orient("right");
+        // Add the y-axis to the right
+        graph.append("svg:g")
+              .attr("class", "y axis axisRight")
+              .attr("transform", "translate(" + (w+15) + ",0)")
+              .call(yAxisRight);
+      
+      // add lines
+      // do this AFTER the axes above so that the line is above the tick-lines
+        graph.append("svg:path").attr("fill", "none").attr("d", line1(data1)).attr("class", "data1");
+        graph.append("svg:path").attr("fill", "none").attr("d", line2(data2)).attr("class", "data2");
+      
 
-  svg.append("g")
-      .attr("class", "x axis")
-      .transition()
-      .duration(duration)
-      .attr("transform", "translate(0," + height + ")")
-      .call(xAxis);
 
-  svg.append("g")
-      .attr("class", "y axis")
-      .call(yAxis)
-    .append("text")
-          .transition()
-      .duration(duration)
-      .attr("transform", "rotate(-90)")
-      .attr("y", 6)
-      .attr("dy", ".71em")
-      .style("text-anchor", "end")
-      .text("Price ($)");
 
-  svg.append("path")
-      .datum(data)
-      .attr("class", "line")
-      .attr("d", line)
-      ;
-});
+
     }
 
 });
@@ -1455,9 +1451,7 @@ App.HexChartComponent = Ember.Component.extend({
 
   didInsertElement: function(){
     var id = this.$().attr('id');
-    var margin = {top: 20, right: 20, bottom: 30, left: 40},
-    width = 860 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+
 
 var randomX = d3.random.normal(width / 2, 80),
     randomY = d3.random.normal(height / 2, 80),

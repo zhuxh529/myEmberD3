@@ -11,10 +11,11 @@
   <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-responsive.min.css" rel="stylesheet">
   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
   <link href="external/google-code-prettify/prettify.css" rel="stylesheet">
-  <!--
-  <link href="https://rawgit.com/zhuxh529/myEmberD3/master/index.css" rel="stylesheet">
-  -->
+ 
+  <link href="http://rawgit.com/zhuxh529/myEmberD3/master/index.css" rel="stylesheet">
+   <!--
   <link href="index.css" rel="stylesheet">
+  -->
 
 
 
@@ -35,7 +36,7 @@
         <li >{{#link-to 'index'}}waterfall-chart{{/link-to}}</li>
         <li >{{#link-to 'barChart'}}bar-chart{{/link-to}}</li>
         <li>{{#link-to 'pieChart'}}donut-chart{{/link-to}}</li>
-        <li>{{#link-to 'donutChart'}}bar-chart{{/link-to}}</li>
+        <li>{{#link-to 'donutChart'}}pie-chart{{/link-to}}</li>
         <li>{{#link-to 'lineChart'}}line-chart{{/link-to}}</li>
         <li>{{#link-to 'hexChart'}}hexagonal-chart{{/link-to}}</li>
         <li class="nav-divider"></li>
@@ -57,7 +58,7 @@
 
   <script type="text/x-handlebars" data-template-name="index">
 
-    {{waterfall-chart  file="https://rawgit.com/zhuxh529/myEmberD3/master/data_1.json"}}
+    {{waterfall-chart  file="http://rawgit.com/zhuxh529/myEmberD3/master/data_5.json"}}
 
   </script>
 
@@ -83,12 +84,20 @@
   </script>
 
   <script type="text/x-handlebars" id="description">
+  <p class="textIn">This is my summer intern project at Pros. Inc. I mainly designed and implemented the waterfall Charts
+    in d3.js and ember.js. The Dashboard I created here is just a Demo to show how powerfull the combination of d3 and ember is.
+    The Company didnt ask me to create the dashboard. They just wanted me to create a waterfall chart in HTML5. They will gradually
+    replace their Flash-Flex made Dashboard with the HTML One. <br><br>
+    The waterfall chart I created here has several functionalities. First is the hierarchical view of inside bars. Just click on a bar to 
+    navigate in and click on whitespace around to navigate out. Second feature is Percent View and Value View, which enables the 
+    change between 2 modes. The third feature is IF-Scenario, which enables users to modify bar values and update graph.<br><br>
+    The other charts shown here are just for demo use. I didnt write the code for those charts,but just found the code online and plug them into ember components. The total time for waterfall charts is about 90% of my intern time(9 weeks). In the remaining 10% I was writting comments and making this dashboard. Go and play around the graphs. Have fun:D
 
-
+  </p>
   </script>
 
   <script type="text/x-handlebars" id="about">
-  <p>hello</p>
+  <p class="textIn">Hi, my name is Xihao Zhu. I am currently a Computer Science Student at Rice University. You can know more about me from my personal website: www.zhuxh529.net</p>
   </script>
 
 <script type="text/x-handlebars" id="components/waterfall-chart" >
@@ -106,11 +115,11 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu">
-    <li><a href="#" {{action "deleteSvg" "https://rawgit.com/zhuxh529/myEmberD3/master/data_1.json"}}>datafile1</a></li>
-    <li><a href="#" {{action "deleteSvg" "https://rawgit.com/zhuxh529/myEmberD3/master/data_2.json"}}>datafile2</a></li>
-    <li><a href="#" {{action "deleteSvg" "https://rawgit.com/zhuxh529/myEmberD3/master/data_3.json"}}>datafile3</a></li>
-    <li><a href="#" {{action "deleteSvg" "https://rawgit.com/zhuxh529/myEmberD3/master/data_4.json"}}>datafile4</a></li>
-    <li><a href="#" {{action "deleteSvg" "https://rawgit.com/zhuxh529/myEmberD3/master/data_5.json"}}>datafile5</a></li>
+    <li><a href="#" {{action "deleteSvg" "http://rawgit.com/zhuxh529/myEmberD3/master/data_1.json"}}>datafile1</a></li>
+    <li><a href="#" {{action "deleteSvg" "http://rawgit.com/zhuxh529/myEmberD3/master/data_2.json"}}>datafile2</a></li>
+    <li><a href="#" {{action "deleteSvg" "http://rawgit.com/zhuxh529/myEmberD3/master/data_3.json"}}>datafile3</a></li>
+    <li><a href="#" {{action "deleteSvg" "http://rawgit.com/zhuxh529/myEmberD3/master/data_4.json"}}>datafile4</a></li>
+    <li><a href="#" {{action "deleteSvg" "http://rawgit.com/zhuxh529/myEmberD3/master/data_5.json"}}>datafile5</a></li>
 
   </ul>
 </div>
@@ -151,22 +160,23 @@
 </script>
 
 
-  <script src="https://rawgit.com/zhuxh529/myEmberD3/master/js/libs/jquery-1.10.2.js"></script>
+  <script src="http://rawgit.com/zhuxh529/myEmberD3/master/js/libs/jquery-1.10.2.js"></script>
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
   <script src="js/libs/jquery-ui.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.1.2/handlebars.js"></script>
-  <script src="https://rawgit.com/zhuxh529/emberd3/master/js/libs/ember-1.5.1.js"></script>
+  <script src="http://rawgit.com/zhuxh529/emberd3/master/js/libs/ember-1.5.1.js"></script>
   <script src="http://d3js.org/d3.v3.min.js"></script>
   <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
   <script src="http://d3js.org/d3.hexbin.v0.min.js?5c6e4f0"></script>
 
+
+  <script src="http://rawgit.com/zhuxh529/myEmberD3/master/js/app.js"></script>
+
 <!--
-  <script src="https://rawgit.com/zhuxh529/myEmberD3/master/js/app.js"></script>
--->
   <script src="js/app.js"></script>
+-->
 
-
-  <script src="https://rawgit.com/zhuxh529/myEmberD3/master/mindmup-editabletable.js"></script>
+  <script src="http://rawgit.com/zhuxh529/myEmberD3/master/mindmup-editabletable.js"></script>
 
 
 
