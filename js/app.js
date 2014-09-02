@@ -1350,10 +1350,13 @@ App.LineChartComponent = Ember.Component.extend({
     var id = this.$().attr('id');
     d3.select("#"+id).select("svg").remove();
 
+    var windowWidth=window.innerWidth;
+    var windowHeight=window.innerHeight;
 
-    var m = [80, 80, 80, 120]; // margins
-    var w = 860 - m[1] - m[3];  // width
-    var h = 500 - m[0] - m[2]; // height
+
+    var m = [40, 120, 50, 140]; // margins
+    var w = (windowWidth-180)*5.5/6 - m[1] - m[3];  // width
+    var h = (windowHeight-80)*5/6 - m[0] - m[2]; // height
     
     // create a simple data array that we'll plot with a line (this array represents only the Y values, X will just be the index location)
     var data1 = [8, 7, 8, 7,9, 9, 9, 6, 5, 3, 2, 1, 2, 1, 2, 3, 1, 2, 2, 3, 2, 1, 3, 8, 9, 6, 5, 2, 2, 3];
@@ -1371,15 +1374,10 @@ App.LineChartComponent = Ember.Component.extend({
     var line1 = d3.svg.line()
       // assign the X function to plot our line as we wish
       .x(function(d,i) { 
-        // verbose logging to show what's actually being done
-        console.log('Plotting X1 value for data point: ' + d + ' using index: ' + i + ' to be at: ' + x(i) + ' using our xScale.');
-        // return the X coordinate where we want to plot this datapoint
+
         return x(i); 
       })
       .y(function(d) { 
-        // verbose logging to show what's actually being done
-        console.log('Plotting Y1 value for data point: ' + d + ' to be at: ' + y1(d) + " using our y1Scale.");
-        // return the Y coordinate where we want to plot this datapoint
         return y1(d); 
       })
       
@@ -1387,15 +1385,9 @@ App.LineChartComponent = Ember.Component.extend({
     var line2 = d3.svg.line()
       // assign the X function to plot our line as we wish
       .x(function(d,i) { 
-        // verbose logging to show what's actually being done
-        console.log('Plotting X2 value for data point: ' + d + ' using index: ' + i + ' to be at: ' + x(i) + ' using our xScale.');
-        // return the X coordinate where we want to plot this datapoint
         return x(i); 
       })
       .y(function(d) { 
-        // verbose logging to show what's actually being done
-        console.log('Plotting Y2 value for data point: ' + d + ' to be at: ' + y2(d) + " using our y2Scale.");
-        // return the Y coordinate where we want to plot this datapoint
         return y2(d); 
       })
 
@@ -1412,6 +1404,8 @@ App.LineChartComponent = Ember.Component.extend({
       // Add the x-axis.
       graph.append("svg:g")
             .attr("class", "x axis")
+            .transition()
+            .duration(duration)
             .attr("transform", "translate(0," + h + ")")
             .call(xAxis);
 
@@ -1421,6 +1415,8 @@ App.LineChartComponent = Ember.Component.extend({
       // Add the y-axis to the left
       graph.append("svg:g")
             .attr("class", "y axis axisLeft")
+            .transition()
+            .duration(duration)
             .attr("transform", "translate(-15,0)")
             .call(yAxisLeft);
 
